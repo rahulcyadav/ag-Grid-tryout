@@ -9,7 +9,8 @@ export default class PageSizeSelect extends Component {
 
   componentDidMount() {
     const portalContainer = document.querySelector(".ag-paging-panel");
-    portalContainer.appendChild(this.el);
+    const firstChild = document.querySelector(".ag-paging-row-summary-panel");
+    portalContainer.insertBefore(this.el, firstChild);
   }
 
   componentWillUnmount() {
