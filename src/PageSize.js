@@ -22,7 +22,9 @@ export default class PageSizeSelect extends Component {
     return ReactDOM.createPortal(
       <select value={this.props.value} onChange={this.props.onChange}>
         {this.props.options.map(option => (
-          <option value={option}>{option}</option>
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
       </select>,
       this.el
