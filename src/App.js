@@ -19,7 +19,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    // setInterval(this.fetchData, 5000);
+    setInterval(this.fetchData, 15000);
   }
 
   fetchData = () => {
@@ -49,7 +49,10 @@ export default class App extends Component {
     this.forceUpdate();
   };
 
-  getRowNodeId = (data) => data.id;
+  getRowNodeId = (data) =>
+    `${data.athlete}${data.age}${data.country}${data.year}${data.date}${
+      data.sport
+    }${data.gold}${data.silver}${data.bronze}${data.total}`;
 
   render() {
     return (
