@@ -4,13 +4,7 @@ import axios from 'axios';
 import './styles.css';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import {
-  carColDefs,
-  athleteColDefs,
-  carRowData,
-  defaultColDef,
-  pageSizeOptions,
-} from './config';
+import { athleteColDefs, defaultColDef, pageSizeOptions } from './config';
 import PageSizeSelect from './PageSize';
 
 export default class App extends Component {
