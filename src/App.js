@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { AgGridReact } from "ag-grid-react";
-import axios from "axios";
-import "./styles.css";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import React, { Component } from 'react';
+import { AgGridReact } from 'ag-grid-react';
+import axios from 'axios';
+import './styles.css';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import {
   carColDefs,
   athleteColDefs,
   carRowData,
   defaultColDef,
-  pageSizeOptions
-} from "./config";
-import PageSizeSelect from "./PageSize";
+  pageSizeOptions,
+} from './config';
+import PageSizeSelect from './PageSize';
 
 export default class App extends Component {
   constructor(props) {
@@ -19,26 +19,30 @@ export default class App extends Component {
     this.state = {
       columnDefs: athleteColDefs,
       rowData: [],
-      selectedPageSize: pageSizeOptions[1]
+      selectedPageSize: pageSizeOptions[1],
     };
   }
 
   componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = () => {
     axios
       .get(
-        "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json"
+        'https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json',
       )
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         this.setState({ rowData: response.data });
       });
-  }
+  };
 
-  onGridReady = params => {
+  onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
   };
-  handlePageSizeChange = event => {
+  handlePageSizeChange = (event) => {
     // this.setState({ selectedPageSize: event.target.value });
     this.gridApi.paginationSetPageSize(event.target.value);
     this.forceUpdate();
@@ -48,7 +52,7 @@ export default class App extends Component {
     return (
       <div
         className="ag-theme-balham"
-        style={{ height: "500px", width: "100%" }}
+        style={{ height: '500px', width: '100%' }}
       >
         <AgGridReact
           onGridReady={this.onGridReady}
