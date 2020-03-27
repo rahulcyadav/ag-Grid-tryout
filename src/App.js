@@ -14,11 +14,12 @@ export default class App extends Component {
       columnDefs: athleteColDefs,
       rowData: [],
       selectedPageSize: pageSizeOptions[1],
+      alt: false,
     };
   }
 
   componentDidMount() {
-    this.fetchData();
+    // setInterval(this.fetchData, 5000);
   }
 
   fetchData = () => {
@@ -27,8 +28,14 @@ export default class App extends Component {
         'https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json',
       )
       .then((response) => {
-        console.log(response.data);
-        this.setState({ rowData: response.data });
+        console.log(response.data.length);
+        this.setState({
+          rowData: this.state.alt ? response.data.slice(2) : response.data,
+          alt: !this.state.alt,
+        });
+        // this.gridApi.setRowData(
+        //   this.state.alt ? response.data.slice(2) : response.data,
+        // );
       });
   };
 
@@ -42,6 +49,8 @@ export default class App extends Component {
     this.forceUpdate();
   };
 
+  getRowNodeId = (data) => data.id;
+
   render() {
     return (
       <div
@@ -54,6 +63,8 @@ export default class App extends Component {
           columnDefs={this.state.columnDefs}
           defaultColDef={defaultColDef}
           rowData={this.state.rowData}
+          deltaRowDataMode={true}
+          getRowNodeId={this.getRowNodeId}
           floatingFilter={true}
           pagination={true}
           paginationPageSize={this.state.selectedPageSize}
